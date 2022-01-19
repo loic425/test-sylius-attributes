@@ -4,43 +4,41 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use App\Form\Type\AdminBookType;
+use Doctrine\ORM\Mapping\Column;
+use Doctrine\ORM\Mapping\Entity;
+use Doctrine\ORM\Mapping\GeneratedValue;
+use Doctrine\ORM\Mapping\Id;
 use Sylius\Component\Resource\Annotation\SyliusCrudRoutes;
-use Sylius\Component\Resource\Annotation\SyliusRoute;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
 #[SyliusCrudRoutes(
     alias: 'app.book',
-    path: 'library',
-    section: 'backend',
-    redirect: 'index',
-    grid: 'sylius_backend_admin_user',
-    except: ['show'],
-    vars: [
-        'all' => [
-            'subheader' => 'sylius.ui.manage_users_able_to_access_administration_panel',
-        ],
-        'index' => [
-            'icon' => 'lock',
-        ]
-    ],
+    form: AdminBookType::class,
 )]
-
-#[SyliusRoute(
-    name: 'app_backend_book_show',
-    path: '/library/{id}',
-    methods: ['GET'],
-    controller: 'app.controller.book::indexAction',
-    template: 'backend/book/show.html.twig',
-    vars: [
-        'subheader' => 'sylius.ui.manage_users_able_to_access_administration_panel',
-    ]
-)]
+#[Entity]
 class Book implements ResourceInterface
 {
+    #[Column(type: 'integer')]
+    #[Id]
+    #[GeneratedValue(strategy: 'AUTO')]
     private ?int $id = null;
+
+    #[Column(type: 'string')]
+    private ?string $name = null;
 
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getName(): ?string
+    {
+        return $this->name;
+    }
+
+    public function setName(?string $name): void
+    {
+        $this->name = $name;
     }
 }
