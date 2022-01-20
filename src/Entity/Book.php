@@ -9,14 +9,25 @@ use Doctrine\ORM\Mapping\Column;
 use Doctrine\ORM\Mapping\Entity;
 use Doctrine\ORM\Mapping\GeneratedValue;
 use Doctrine\ORM\Mapping\Id;
-use Sylius\Component\Resource\Annotation\SyliusCrudRoutes;
+use Sylius\Component\Resource\Annotation\SyliusRoute;
 use Sylius\Component\Resource\Model\ResourceInterface;
 
-#[SyliusCrudRoutes(
-    alias: 'app.book',
-    form: AdminBookType::class,
-)]
 #[Entity]
+#[SyliusRoute(
+    name: 'app_book_show',
+    path: '/books/{author}',
+    methods: ['GET'],
+    controller: 'app.controller.book::showAction',
+    repository: [
+        'method' => 'findOneNewestByAuthor',
+        'arguments' => ['$author'],
+    ],
+    criteria: [
+        'enabled' => true,
+    ],
+    serializationGroups: ['Custom', 'Details'],
+    serializationVersion: '1.0.2',
+)]
 class Book implements ResourceInterface
 {
     #[Column(type: 'integer')]

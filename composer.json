@@ -3,12 +3,6 @@
     "license": "proprietary",
     "minimum-stability": "stable",
     "prefer-stable": true,
-    "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/loic425/SyliusResourceBundle"
-        }
-    ],
     "require": {
         "php": "^8.0",
         "ext-ctype": "*",
@@ -21,7 +15,7 @@
         "fakerphp/faker": "^1.17",
         "phpdocumentor/reflection-docblock": "^5.2",
         "sensio/framework-extra-bundle": "^6.1",
-        "sylius/resource-bundle": "dev-draft/sylius-routes-with-attributes",
+        "sylius/resource-bundle": "dev-master",
         "symfony/asset": "5.4.*",
         "symfony/console": "5.4.*",
         "symfony/dotenv": "5.4.*",
